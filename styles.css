@@ -2666,6 +2666,576 @@ body {
   color: var(--ibem-navy);
 }
 
+/* ==========================================================================
+   11. RESPONSIVIDADE COMPLETA E EXPERIÊNCIA MOBILE (SMARTPHONES E TABLETS)
+   Garante 100% de usabilidade em celulares sem necessidade de dar zoom.
+   ========================================================================== */
+
+/* Prevenção global de scroll horizontal e ajuste suave de texto */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.table-scroll-hint {
+  display: none;
+}
+
+/* TABLETS E TELAS MÉDIAS (<= 960px) */
+@media (max-width: 960px) {
+  .classroom-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .classroom-interactive-sidebar {
+    border-left: none;
+    border-top: 2px solid var(--border-light);
+  }
+}
+
+/* SMARTPHONES E TELAS MÓVEIS (<= 768px) */
+@media (max-width: 768px) {
+  /* Previne zoom automático indesejado no iOS Safari mantendo fonte mínima de 16px nos inputs */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  .form-input,
+  .form-select {
+    padding: 11px 14px;
+    min-height: 44px;
+  }
+
+  /* Área de toque padrão mínima para botões móveis (Thumb-friendly) */
+  .btn {
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+
+  .btn-sm {
+    min-height: 38px;
+    padding: 8px 12px;
+    font-size: 0.82rem;
+  }
+
+  /* Layout Geral da Aplicação */
+  .app-layout {
+    padding: 14px 12px 36px;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+  }
+
+  .app-header-left {
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .app-header-logo {
+    width: 38px;
+    height: 38px;
+  }
+
+  .app-title {
+    font-size: 1.15rem;
+    line-height: 1.25;
+  }
+
+  .app-header-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .app-header-right .user-name {
+    font-size: 0.84rem;
+  }
+
+  /* Painel Admin: Abas de Navegação em Botões Grandes Touch */
+  .subnav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-bottom: none;
+    margin-bottom: 18px;
+  }
+
+  .subnav-tab {
+    width: 100%;
+    padding: 12px 14px;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    font-size: 0.88rem;
+    justify-content: flex-start;
+    min-height: 44px;
+  }
+
+  .subnav-tab.active {
+    background-color: var(--ibem-blue-ice);
+    border-color: var(--ibem-blue-primary);
+    color: var(--ibem-blue-deep);
+  }
+
+  .pane-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .pane-header .btn {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
+
+  .filter-bar {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .search-input-wrapper {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .form-input-search {
+    padding-left: 36px;
+    min-height: 44px;
+  }
+
+  /* Dica de rolagem horizontal para tabelas no celular */
+  .table-scroll-hint {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--ibem-blue-primary);
+    background-color: var(--ibem-blue-ice);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    text-align: center;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .table-container {
+    border-radius: var(--radius-md);
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 16px;
+  }
+
+  .data-table {
+    min-width: 620px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 10px 12px;
+    font-size: 0.82rem;
+  }
+
+  /* Painel Admin: Controle Manual de Módulos */
+  .student-control-card {
+    padding: 14px 12px;
+  }
+
+  .student-control-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .student-module-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .student-module-row > div:last-child {
+    width: 100%;
+  }
+
+  .student-module-row .btn {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+    font-size: 0.88rem;
+  }
+
+  /* Dashboard do Aluno */
+  .student-switcher-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .student-switcher-controls {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 4px;
+  }
+
+  .student-switcher-controls select {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .metric-card-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .metric-card {
+    padding: 16px 14px;
+  }
+
+  .metric-value {
+    font-size: 1.6rem;
+  }
+
+  .metric-value-sm {
+    font-size: 1.25rem;
+  }
+
+  .section-box {
+    padding: 16px 14px;
+    margin-bottom: 18px;
+  }
+
+  .section-desc {
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  /* Sala de Aula Interativa no Celular */
+  .classroom-navbar {
+    padding: 10px 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    position: static;
+  }
+
+  .classroom-nav-left {
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .classroom-crumbs {
+    font-size: 0.78rem;
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .crumb-lesson {
+    display: inline-block;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+
+  .classroom-nav-right {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .classroom-nav-right .btn {
+    flex: 1;
+    min-height: 42px;
+    padding: 8px 6px;
+    font-size: 0.8rem;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .classroom-main-content {
+    padding: 16px 12px 36px;
+  }
+
+  .player-container {
+    margin-bottom: 18px;
+    border-radius: var(--radius-sm);
+  }
+
+  .video-placeholder {
+    aspect-ratio: 16 / 9;
+  }
+
+  .video-play-btn {
+    width: 52px;
+    height: 52px;
+  }
+
+  .video-play-btn svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .video-overlay-info {
+    font-size: 0.72rem;
+    bottom: 8px;
+    left: 10px;
+    right: 10px;
+  }
+
+  .player-controls-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 10px 12px;
+  }
+
+  .player-buttons, 
+  .player-tools {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .btn-control {
+    flex: 1;
+    min-height: 36px;
+    font-size: 0.75rem;
+    text-align: center;
+    margin-right: 0;
+  }
+
+  .article-title {
+    font-size: 1.3rem;
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+
+  .article-meta {
+    flex-wrap: wrap;
+    font-size: 0.76rem;
+    gap: 6px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  .article-body {
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  .styled-list {
+    padding-left: 18px;
+    gap: 8px;
+  }
+
+  .quote-box {
+    padding: 12px 14px;
+    margin: 18px 0;
+    font-size: 0.88rem;
+  }
+
+  /* Downloads de Material de Apoio no Mobile */
+  .material-download-card {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .material-name {
+    font-size: 0.85rem;
+    white-space: normal;
+    line-height: 1.3;
+  }
+
+  .material-meta {
+    font-size: 0.72rem;
+  }
+
+  .btn-download-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+  }
+
+  /* Quizzes Interativos no Mobile */
+  .classroom-interactive-sidebar {
+    padding: 20px 14px;
+  }
+
+  .interactive-card {
+    padding: 14px 12px;
+  }
+
+  .card-question {
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .btn-option {
+    min-height: 46px;
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+
+  .match-term-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .btn-match {
+    min-height: 42px;
+    font-size: 0.84rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Modais em Telas Pequenas */
+  .modal-backdrop {
+    padding: 12px;
+    align-items: center;
+  }
+
+  .modal-box {
+    max-width: 100%;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 20px 16px;
+  }
+
+  .modal-actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .modal-actions .btn {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+/* SMARTPHONES COMPACTOS (<= 640px) */
+@media (max-width: 640px) {
+  /* Trilha de Aprendizado em Cards Touch Verticais Amigáveis */
+  .track-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 16px 14px;
+  }
+
+  .track-card .track-status-icon {
+    align-self: flex-start;
+  }
+
+  .track-details {
+    width: 100%;
+  }
+
+  .track-title {
+    font-size: 1.02rem;
+    line-height: 1.35;
+  }
+
+  .track-meta {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    margin-top: 4px;
+  }
+
+  .track-action {
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .track-action .btn {
+    width: 100%;
+    min-height: 46px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    justify-content: center;
+  }
+}
+
+/* SMARTPHONES PEQUENOS (<= 480px) */
+@media (max-width: 480px) {
+  .login-wrapper {
+    padding: 16px 12px;
+  }
+
+  .login-card {
+    padding: 24px 16px;
+    box-shadow: 0 4px 16px rgba(2, 132, 199, 0.08);
+  }
+
+  .login-logo-img {
+    width: 76px;
+    height: 76px;
+  }
+
+  .login-title {
+    font-size: 1.25rem;
+  }
+
+  .login-slogan {
+    font-size: 0.78rem;
+  }
+
+  .quick-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn-chip {
+    width: 100%;
+    min-height: 44px;
+    font-size: 0.82rem;
+  }
+
+  .toast-container {
+    left: 12px;
+    right: 12px;
+    bottom: 16px;
+  }
+
+  .toast {
+    font-size: 0.82rem;
+    padding: 10px 14px;
+    width: 100%;
+  }
+}
+
+
 
 
 
