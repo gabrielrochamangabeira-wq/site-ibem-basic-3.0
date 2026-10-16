@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sala de Aula Interativa — IBEM Cursos e Profissões</title>
+  <meta name="description" content="Ambiente de estudos interativo com foco total em leitura, usabilidade e exercícios de fixação.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/jpeg" href="assets/logo-ibem.jpg">
+</head>
+<body class="classroom-page-body">
+
+  <div class="classroom-layout">
+    
+    <!-- BARRA SUPERIOR DA SALA DE AULA COM NAVEGAÇÃO REAL -->
+    <header class="classroom-navbar">
+      <div class="classroom-nav-left">
+        <!-- BOTÃO REAL PARA RETORNAR AO DASHBOARD DO ALUNO -->
+        <a href="aluno.html" class="btn-icon" title="Voltar ao Dashboard do Aluno">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        </a>
+        <a href="aluno.html" style="display: flex; align-items: center; text-decoration: none;">
+          <img src="assets/logo-ibem.jpg" alt="IBEM" class="classroom-bar-logo">
+        </a>
+        <nav class="classroom-crumbs" aria-label="Hierarquia da Aula">
+          <span class="crumb-module">Módulo 2: Competências Técnicas</span>
+          <span class="crumb-separator">/</span>
+          <span class="crumb-lesson" id="classroomTitle">Aula 4: Técnicas Profissionais e Boas Práticas</span>
+        </nav>
+      </div>
+      <div class="classroom-nav-right">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="prevClassroomStep()">
+          ← Anterior
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" id="btnMarkClassDone" onclick="completeCurrentLesson()">
+          Concluir Aula ✓
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="nextClassroomStep()">
+          Próxima →
+        </button>
+      </div>
+    </header>
+
+    <!-- DIVISÃO PRINCIPAL: 70% CONTEÚDO | 30% INTERATIVO -->
+    <main class="classroom-grid">
+      
+      <!-- ESPAÇO PRINCIPAL PARA O CONTEÚDO (70%) -->
+      <section class="classroom-main-content">
+        
+        <!-- Player de Vídeo Minimalista IBEM -->
+        <div class="player-container">
+          <div class="video-placeholder" onclick="togglePlaySimulation(this)">
+            <div class="video-play-btn">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+            </div>
+            <div class="video-overlay-info">
+              <span class="video-time">14:30 / 22:00</span>
+              <span class="video-tag">IBEM HD • 1.0x</span>
+            </div>
+          </div>
+          <div class="player-controls-bar">
+            <div class="player-buttons">
+              <button type="button" class="btn-control" onclick="alert('Vídeo reproduzido/pausado')">⏯ Play/Pause</button>
+              <button type="button" class="btn-control" onclick="alert('Velocidade alterada para 1.25x')">1.25x</button>
+              <button type="button" class="btn-control" onclick="alert('Legendas ativadas')">CC Legendas</button>
+            </div>
+            <div class="player-tools">
+              <button type="button" class="btn-control" onclick="alert('Anotação registrada com sucesso no seu caderno digital!')">📝 Caderno de Notas</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Texto Instrucional e Leitura Confortável -->
+        <article class="lesson-article">
+          <h1 class="article-title">Práticas de Alta Eficiência e Comunicação no Ambiente de Trabalho</h1>
+          <div class="article-meta">
+            <span>Tempo de leitura: 4 min</span>
+            <span>•</span>
+            <span>Coordenação Pedagógica IBEM</span>
+            <span>•</span>
+            <span>Material Didático Oficial</span>
+          </div>
+
+          <div class="article-body">
+            <p>
+              No padrão de excelência do <strong>IBEM Cursos e Profissões</strong>, o aprendizado foca na aplicação prática imediata e na clareza de execução. Para maximizar sua formação profissional, três pilares são determinantes:
+            </p>
+            
+            <ol class="styled-list">
+              <li>
+                <strong>Organização e Método:</strong> Planejar cada tarefa com clareza visual e etapas bem definidas reduz erros e eleva sua produtividade.
+              </li>
+              <li>
+                <strong>Comunicação Clara e Direta:</strong> Transmitir informações com vocabulário objetivo e foco na solução constrói credibilidade com clientes e equipes.
+              </li>
+              <li>
+                <strong>Fixação Ativa:</strong> O conhecimento se consolida quando exercitado logo após a explicação teórica. Utilize os quizzes rápidos ao lado para testar sua retenção.
+              </li>
+            </ol>
+
+            <div class="quote-box">
+              <p>
+                "Pensou em cursos, pense IBEM, faça IBEM — O aprendizado profissional transformador começa com método e dedicação prática diária."
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- SEÇÃO: MATERIAL DE APOIO E DOWNLOADS (PDFS E DOCUMENTOS) -->
+        <section class="lesson-materials-section" aria-labelledby="materialsHeading">
+          <div class="materials-header">
+            <div class="materials-title-wrap">
+              <svg class="materials-header-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              <h2 class="materials-title" id="materialsHeading">Materiais desta Aula</h2>
+            </div>
+            <span class="materials-count-badge">3 arquivos disponíveis</span>
+          </div>
+
+          <div class="materials-list">
+            
+            <!-- Item 1: Apostila de Fixação (PDF) -->
+            <div class="material-download-card">
+              <div class="material-icon-box" aria-hidden="true">
+                <svg class="material-file-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <path d="M9 15h6"></path>
+                  <path d="M9 11h2"></path>
+                </svg>
+                <span class="file-type-pill">PDF</span>
+              </div>
+
+              <div class="material-info">
+                <h3 class="material-name">Apostila de Fixação — Módulo 2</h3>
+                <span class="material-meta">PDF • 2.4 MB • Conteúdo didático oficial</span>
+              </div>
+
+              <button type="button" class="btn-download-icon" title="Baixar Apostila de Fixação (PDF 2.4 MB)" onclick="showToast('Iniciando download: Apostila de Fixação - Módulo 2 (PDF)...')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span class="sr-only">Baixar Apostila</span>
+              </button>
+            </div>
+
+            <!-- Item 2: Guia Prático para Impressão (PDF) -->
+            <div class="material-download-card">
+              <div class="material-icon-box" aria-hidden="true">
+                <svg class="material-file-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+                <span class="file-type-pill">PDF</span>
+              </div>
+
+              <div class="material-info">
+                <h3 class="material-name">Guia Prático para Impressão (Checklist &amp; Modelos)</h3>
+                <span class="material-meta">PDF • 1.1 MB • Otimizado para estudo presencial e anotações</span>
+              </div>
+
+              <button type="button" class="btn-download-icon" title="Baixar Guia Prático para Impressão (PDF 1.1 MB)" onclick="showToast('Iniciando download: Guia Prático para Impressão (PDF)...')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span class="sr-only">Baixar Guia</span>
+              </button>
+            </div>
+
+            <!-- Item 3: Caderno de Exercícios Complementares -->
+            <div class="material-download-card">
+              <div class="material-icon-box" aria-hidden="true">
+                <svg class="material-file-svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                <span class="file-type-pill">PDF</span>
+              </div>
+
+              <div class="material-info">
+                <h3 class="material-name">Exercícios Complementares e Estudo de Caso</h3>
+                <span class="material-meta">PDF • 850 KB • Gabarito incluso ao final</span>
+              </div>
+
+              <button type="button" class="btn-download-icon" title="Baixar Exercícios Complementares (PDF 850 KB)" onclick="showToast('Iniciando download: Exercícios Complementares (PDF)...')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span class="sr-only">Baixar Exercícios</span>
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+      </section>
+
+      <!-- ÁREA DEDICADA PARA PEQUENOS QUIZZES E INTERAÇÕES RÁPIDAS (30%) -->
+      <aside class="classroom-interactive-sidebar" id="quizzes" aria-label="Atividades Interativas">
+        <div class="sidebar-header">
+          <div class="sidebar-title-group">
+            <span class="sidebar-badge">Fixação Imediata IBEM</span>
+            <h2 class="sidebar-title" style="font-size: 1.05rem;">Quizzes e Interações</h2>
+          </div>
+          <span class="quiz-score" id="quizScoreText">0/3 Feito</span>
+        </div>
+
+        <div class="quiz-container">
+          
+          <!-- QUIZ 1: VERDADEIRO OU FALSO -->
+          <div class="interactive-card" id="quiz-tf">
+            <div class="card-badge-row">
+              <span class="card-type-tag">Verdadeiro ou Falso</span>
+              <span class="status-pill" id="badge-tf">Pendente</span>
+            </div>
+            <h3 class="card-question">
+              Ambientes de estudo com layout limpo e boa tipografia aceleram a retenção do conteúdo prático?
+            </h3>
+            <div class="tf-options">
+              <button type="button" class="btn-option" onclick="answerTF(true, this)">
+                Verdadeiro
+              </button>
+              <button type="button" class="btn-option" onclick="answerTF(false, this)">
+                Falso
+              </button>
+            </div>
+            <div class="feedback-box" id="feedback-tf"></div>
+          </div>
+
+          <!-- QUIZ 2: MÚLTIPLA ESCOLHA -->
+          <div class="interactive-card" id="quiz-mc">
+            <div class="card-badge-row">
+              <span class="card-type-tag">Múltipla Escolha</span>
+              <span class="status-pill" id="badge-mc">Pendente</span>
+            </div>
+            <h3 class="card-question">
+              Qual é o lema que orienta a proposta formativa do IBEM?
+            </h3>
+            <div class="mc-options">
+              <button type="button" class="btn-option btn-mc" onclick="answerMC(1, this)">
+                A. O aprendizado sem prática
+              </button>
+              <button type="button" class="btn-option btn-mc" onclick="answerMC(2, this)">
+                B. Pensou em cursos, pense IBEM, faça IBEM
+              </button>
+              <button type="button" class="btn-option btn-mc" onclick="answerMC(3, this)">
+                C. Apenas aulas gravadas sem acompanhamento
+              </button>
+            </div>
+            <div class="feedback-box" id="feedback-mc"></div>
+          </div>
+
+          <!-- QUIZ 3: ASSOCIAÇÃO RÁPIDA -->
+          <div class="interactive-card" id="quiz-match">
+            <div class="card-badge-row">
+              <span class="card-type-tag">Associação Rápida</span>
+              <span class="status-pill" id="badge-match">Pendente</span>
+            </div>
+            <h3 class="card-question">
+              Associe a competência à sua ação direta:
+            </h3>
+            <p class="match-desc">Clique para associar os pares práticos:</p>
+
+            <div class="match-game" id="matchGameContainer">
+              <div class="match-term-row">
+                <span class="match-term">Foco na Leitura:</span>
+                <button type="button" class="btn-match" onclick="resolveMatch(this, 'Reduz ruído visual')">
+                  Conectar função...
+                </button>
+              </div>
+              <div class="match-term-row">
+                <span class="match-term">Certificação IBEM:</span>
+                <button type="button" class="btn-match" onclick="resolveMatch(this, 'Comprova qualificação')">
+                  Conectar função...
+                </button>
+              </div>
+            </div>
+            <div class="feedback-box" id="feedback-match"></div>
+          </div>
+
+        </div>
+      </aside>
+
+    </main>
+  </div>
+
+  <!-- TOAST / NOTIFICAÇÃO -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — IBEM Cursos e Profissões</title>
+  <meta name="description" content="Acesso ao portal de estudos do IBEM Cursos e Profissões. Pensou em cursos, pense IBEM, faça IBEM.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/jpeg" href="assets/logo-ibem.jpg">
+</head>
+<body class="login-page-body">
+
+  <!-- CONTAINER CENTRALIZADO DE LOGIN -->
+  <main class="login-wrapper">
+    <div class="login-card">
+      
+      <!-- CABEÇALHO DO CARD COM A LOGO OFICIAL IBEM -->
+      <header class="login-header">
+        <div class="login-logo-wrapper">
+          <img src="assets/logo-ibem.jpg" alt="Logo IBEM Cursos e Profissões" class="login-logo-img">
+        </div>
+        <div class="brand-subtitle-tag">Cursos e Profissões</div>
+        <h1 class="login-title">Portal de Aprendizado</h1>
+        <p class="login-slogan">"Pensou em cursos, pense IBEM, faça IBEM"</p>
+      </header>
+
+      <!-- FORMULÁRIO DE LOGIN COM DETECÇÃO AUTOMÁTICA -->
+      <form class="login-form" id="loginForm" onsubmit="event.preventDefault(); processLogin();">
+        <div class="form-group">
+          <label for="loginEmail" class="form-label">E-mail de Acesso</label>
+          <input 
+            type="email" 
+            id="loginEmail" 
+            class="form-input" 
+            placeholder="aluno@ibem.edu.br ou admin@ibem.edu.br" 
+            required 
+            autocomplete="email"
+            value="aluno@ibem.edu.br"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword" class="form-label">Senha</label>
+          <input 
+            type="password" 
+            id="loginPassword" 
+            class="form-input" 
+            placeholder="Digite sua senha cadastrada" 
+            required 
+            autocomplete="current-password"
+            value="123456"
+          >
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="btnLoginSubmit">
+          Entrar na Plataforma
+        </button>
+      </form>
+
+      <!-- TEXTO AUXILIAR OBRIGATÓRIO CONFORME ESPECIFICAÇÃO -->
+      <div class="login-helper-box" role="note">
+        <svg class="icon icon-info" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <p class="helper-text">
+          O sistema detecta automaticamente se você é Aluno ou Administrador
+        </p>
+      </div>
+
+      <!-- ATALHOS DIRETOS PARA FACILITAR NAVEGAÇÃO -->
+      <div class="quick-access-box">
+        <span class="quick-title">Acesso rápido:</span>
+        <div class="quick-actions">
+          <a href="aluno.html" class="btn-chip" style="text-align: center; text-decoration: none;">
+            Entrar como Aluno
+          </a>
+          <a href="admin.html" class="btn-chip" style="text-align: center; text-decoration: none;">
+            Entrar como Administrador
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- TOAST / NOTIFICAÇÃO -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

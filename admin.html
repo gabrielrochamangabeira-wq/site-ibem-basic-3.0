@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administração — IBEM Cursos e Profissões</title>
+  <meta name="description" content="Painel de Controle e Gestão Exclusiva do Administrador IBEM.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/jpeg" href="assets/logo-ibem.jpg">
+</head>
+<body>
+
+  <!-- ESTRUTURA PRINCIPAL DO PAINEL DO ADMINISTRADOR -->
+  <div class="app-layout">
+    
+    <!-- BARRA SUPERIOR DO SISTEMA COM LOGO E SAÍDA -->
+    <header class="app-header">
+      <div class="app-header-left">
+        <a href="admin.html" style="display: flex; align-items: center; text-decoration: none;">
+          <img src="assets/logo-ibem.jpg" alt="Logo IBEM" class="app-header-logo">
+        </a>
+        <div>
+          <span class="app-title">Painel de Controle IBEM</span>
+          <span class="role-badge role-admin">Administrador</span>
+        </div>
+      </div>
+      <div class="app-header-right">
+        <span class="user-name">Coordenação Pedagógica</span>
+        <a href="index.html" class="btn btn-secondary btn-sm" title="Encerrar sessão">
+          Sair
+        </a>
+      </div>
+    </header>
+
+    <!-- MENU DE NAVEGAÇÃO INTERNO COM APENAS AS 2 FUNÇÕES PRINCIPAIS -->
+    <nav class="subnav" aria-label="Navegação Administrativa">
+      <button type="button" class="subnav-tab active" data-tab="admin-alunos" id="tabAdminAlunos">
+        👥 1. Cadastrar e Gerenciar Alunos
+      </button>
+      <button type="button" class="subnav-tab" data-tab="admin-modulos" id="tabAdminModulos">
+        🔓 2. Controle de Módulos (Liberação Manual)
+      </button>
+    </nav>
+
+    <!-- CONTEÚDO PRINCIPAL DO PAINEL -->
+    <main class="content-body">
+
+      <!-- ============================================================== -->
+      <!-- FUNÇÃO 1: CADASTRO E GESTÃO DE ALUNOS                          -->
+      <!-- ============================================================== -->
+      <section class="tab-pane active" id="pane-admin-alunos" aria-labelledby="titleAlunos">
+        <div class="pane-header">
+          <div>
+            <h2 class="pane-title" id="titleAlunos">Gestão de Alunos</h2>
+            <p class="pane-desc">Cadastre o aluno, crie o e-mail/senha e defina qual curso ele terá acesso exclusivo.</p>
+          </div>
+          <button type="button" class="btn btn-primary" onclick="openStudentModal()" id="btnOpenNewStudent">
+            + Cadastrar Novo Aluno
+          </button>
+        </div>
+
+        <!-- Barra de Busca -->
+        <div class="filter-bar">
+          <div class="search-input-wrapper" style="max-width: 480px;">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" class="form-input form-input-search" id="searchStudentInput" placeholder="Buscar aluno por nome ou e-mail..." oninput="filterStudents()">
+          </div>
+        </div>
+
+        <!-- Tabela Limpa de Alunos -->
+        <div class="table-container">
+          <table class="data-table" id="studentsTable">
+            <thead>
+              <tr>
+                <th>Nome do Aluno</th>
+                <th>Login (E-mail / Senha)</th>
+                <th>Curso Atribuído</th>
+                <th>Status dos Módulos</th>
+                <th class="text-right">Ações Manuais</th>
+              </tr>
+            </thead>
+            <tbody id="studentsTableBody">
+              <!-- Renderizado via JavaScript (app.js) -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- FUNÇÃO 2: CONTROLE DE MÓDULOS E LIBERAÇÃO MANUAL (CADEADO)     -->
+      <!-- ============================================================== -->
+      <section class="tab-pane" id="pane-admin-modulos" aria-labelledby="titleModulos">
+        <div class="pane-header">
+          <div>
+            <h2 class="pane-title" id="titleModulos">Controle Manual de Módulos</h2>
+            <p class="pane-desc">
+              Tire o cadeado da tela do aluno com um clique. A liberação é manual e reflete imediatamente no Dashboard do estudante.
+            </p>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openLessonModal()" id="btnNewLesson">
+            + Adicionar Nova Aula
+          </button>
+        </div>
+
+        <!-- Grade de Liberação Manual por Aluno -->
+        <div id="moduleControlContainer" class="module-control-grid">
+          <!-- Renderizado via JavaScript (app.js) com botões "Liberar Módulo X para Aluno Y" -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODAL: CADASTRAR OU EDITAR ALUNO (NOME, E-MAIL, SENHA E CURSO) -->
+  <div class="modal-backdrop" id="studentModal" role="dialog" aria-modal="true" aria-labelledby="modalStudentTitle">
+    <div class="modal-box" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalStudentTitle">Cadastrar Novo Aluno</h3>
+        <button type="button" class="btn-close" onclick="closeStudentModal()" aria-label="Fechar modal">✕</button>
+      </div>
+      <form id="studentForm" onsubmit="event.preventDefault(); saveStudent();">
+        <input type="hidden" id="studentEditId">
+        
+        <div class="form-group">
+          <label class="form-label" for="formStudentName">Nome Completo</label>
+          <input type="text" id="formStudentName" class="form-input" required placeholder="Ex.: Lucas Fernandes da Silva">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" for="formStudentEmail">E-mail de Acesso (Login)</label>
+          <input type="email" id="formStudentEmail" class="form-input" required placeholder="Ex.: aluno@ibem.edu.br">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="formStudentPassword">Senha de Acesso</label>
+          <input type="text" id="formStudentPassword" class="form-input" required placeholder="Ex.: 123456" value="123456">
+          <span style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
+            Defina uma senha simples para o aluno acessar a plataforma.
+          </span>
+        </div>
+
+        <!-- SELEÇÃO OBRIGATÓRIA DO CURSO -->
+        <div class="form-group">
+          <label class="form-label" for="formStudentCourse">Curso que o Aluno Terá Acesso</label>
+          <select id="formStudentCourse" class="form-select" onchange="onCourseSelectChanged()" required>
+            <!-- Populado dinamicamente com cursos oficiais IBEM -->
+          </select>
+        </div>
+
+        <!-- MÓDULOS LIBERADOS INICIALMENTE -->
+        <div class="form-group">
+          <label class="form-label">Módulos Liberados Inicialmente:</label>
+          <div id="moduleCheckboxesContainer" class="checkboxes-module-list">
+            <!-- Checkboxes dinâmicos do curso selecionado -->
+          </div>
+          <span style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
+            Módulos desmarcados aparecerão bloqueados com cadeado para o aluno até que você libere manualmente.
+          </span>
+        </div>
+
+        <div class="modal-actions" style="margin-top:20px;">
+          <button type="button" class="btn btn-secondary" onclick="closeStudentModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="btnSaveStudent">Salvar Matrícula</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADICIONAR NOVA AULA (ADMIN) -->
+  <div class="modal-backdrop" id="lessonModal" role="dialog" aria-modal="true" aria-labelledby="modalLessonTitle">
+    <div class="modal-box" style="max-width: 460px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalLessonTitle">Adicionar Nova Aula</h3>
+        <button type="button" class="btn-close" onclick="closeLessonModal()" aria-label="Fechar modal">✕</button>
+      </div>
+      <form id="lessonForm" onsubmit="event.preventDefault(); saveLesson();">
+        <div class="form-group">
+          <label class="form-label" for="formLessonCourse">Curso:</label>
+          <select id="formLessonCourse" class="form-select" required>
+            <!-- Populado dinamicamente -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="formLessonModule">Módulo do Curso:</label>
+          <select id="formLessonModule" class="form-select" required>
+            <option value="1">Módulo 1</option>
+            <option value="2">Módulo 2</option>
+            <option value="3">Módulo 3</option>
+            <option value="4">Módulo 4</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="formLessonTitle">Título da Aula:</label>
+          <input type="text" id="formLessonTitle" class="form-input" required placeholder="Ex.: Aula 5: Técnicas Avançadas e Prática">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="formLessonDuration">Duração Estimada:</label>
+          <input type="text" id="formLessonDuration" class="form-input" required placeholder="Ex.: 20 min" value="20 min">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeLessonModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Cadastrar Aula</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST / NOTIFICAÇÃO -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
