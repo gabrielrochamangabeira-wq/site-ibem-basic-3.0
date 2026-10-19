@@ -2667,6 +2667,236 @@ body {
 }
 
 /* ==========================================================================
+   10.1 SISTEMA DE GESTÃO E EXIBIÇÃO DINÂMICA DE AULAS (ADMIN & ALUNO)
+   ========================================================================== */
+.form-textarea {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: var(--text-main);
+  background-color: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--ibem-blue-primary);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+/* Sub-lista de Aulas do Módulo no Dashboard do Aluno */
+.module-lessons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-light);
+  width: 100%;
+}
+
+.module-lesson-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background-color: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  transition: all 0.15s ease;
+}
+
+.module-lesson-item:hover {
+  border-color: var(--ibem-blue-primary);
+  background-color: var(--ibem-blue-subtle);
+  transform: translateX(2px);
+}
+
+.lesson-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.lesson-item-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ibem-blue-deep);
+  background-color: var(--ibem-blue-ice);
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.lesson-item-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ibem-navy);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lesson-item-action {
+  flex-shrink: 0;
+}
+
+/* Player Responsivo YouTube */
+.video-responsive-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #0b1f3a;
+  overflow: hidden;
+}
+
+#player,
+.video-responsive-wrapper iframe,
+.youtube-embed-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+  display: block;
+}
+
+/* Botão de Conclusão com Bloqueio e Liberação Automática */
+.btn-classroom-complete:disabled,
+#btnMarkClassDone:disabled,
+#btnMarkClassDoneFooter:disabled {
+  background: #cbd5e1 !important;
+  color: #64748b !important;
+  border: 1px solid #cbd5e1 !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+  box-shadow: none !important;
+  filter: grayscale(1);
+}
+
+.btn-classroom-complete:disabled:hover,
+#btnMarkClassDone:disabled:hover,
+#btnMarkClassDoneFooter:disabled:hover {
+  background: #cbd5e1 !important;
+  color: #64748b !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.btn-classroom-complete.is-unlocked,
+#btnMarkClassDone:not(:disabled),
+#btnMarkClassDoneFooter:not(:disabled) {
+  background: var(--ibem-gradient) !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  opacity: 1 !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4) !important;
+  transition: all 0.3s ease;
+}
+
+/* Alerta de Explicação Concluída na Tela */
+.lesson-alert-banner {
+  margin-top: 14px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: #065f46;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.12);
+  animation: slideDownAlert 0.3s ease-out;
+}
+
+@keyframes slideDownAlert {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lesson-alert-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lesson-alert-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #059669;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.lesson-alert-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.lesson-alert-title {
+  color: #064e3b;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.lesson-alert-msg {
+  color: #047857;
+  font-size: 0.82rem;
+}
+
+.btn-test-sim {
+  border-color: #0369a1;
+  color: #38bdf8;
+  font-size: 0.72rem;
+}
+
+.btn-test-sim:hover {
+  background-color: rgba(56, 189, 248, 0.15);
+  color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .module-lesson-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .module-lesson-item .btn {
+    width: 100%;
+    min-height: 42px;
+    justify-content: center;
+  }
+
+  .lesson-item-title {
+    white-space: normal;
+  }
+}
+
+/* ==========================================================================
    11. RESPONSIVIDADE COMPLETA E EXPERIÊNCIA MOBILE (SMARTPHONES E TABLETS)
    Garante 100% de usabilidade em celulares sem necessidade de dar zoom.
    ========================================================================== */

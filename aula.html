@@ -23,19 +23,27 @@
           <img src="assets/logo-ibem.jpg" alt="IBEM" class="classroom-bar-logo">
         </a>
         <nav class="classroom-crumbs" aria-label="Hierarquia da Aula">
-          <span class="crumb-module">Módulo 2: Competências Técnicas</span>
+          <span class="crumb-module" id="classroomModuleBreadcrumb">Módulo 1</span>
           <span class="crumb-separator">/</span>
-          <span class="crumb-lesson" id="classroomTitle">Aula 4: Técnicas Profissionais e Boas Práticas</span>
+          <span class="crumb-lesson" id="classroomTitle">Carregando Aula...</span>
         </nav>
       </div>
       <div class="classroom-nav-right">
-        <button type="button" class="btn btn-secondary btn-sm" onclick="prevClassroomStep()">
+        <button type="button" class="btn btn-secondary btn-sm" id="btnPrevLesson" onclick="goToAdjacentLesson(-1)">
           ← Anterior
         </button>
-        <button type="button" class="btn btn-primary btn-sm" id="btnMarkClassDone" onclick="completeCurrentLesson()">
-          Concluir Aula ✓
+        <button 
+          type="button" 
+          class="btn btn-primary btn-sm btn-classroom-complete" 
+          id="btnMarkClassDone" 
+          onclick="completeCurrentLesson()" 
+          disabled
+          title="Assista à explicação até o fim para liberar a conclusão da aula"
+        >
+          <span class="btn-lock-icon" id="btnLockIcon">🔒</span>
+          <span id="btnCompleteText">Concluir Aula e Voltar ao Painel</span>
         </button>
-        <button type="button" class="btn btn-secondary btn-sm" onclick="nextClassroomStep()">
+        <button type="button" class="btn btn-secondary btn-sm" id="btnNextLesson" onclick="goToAdjacentLesson(1)">
           Próxima →
         </button>
       </div>
@@ -47,62 +55,61 @@
       <!-- ESPAÇO PRINCIPAL PARA O CONTEÚDO (70%) -->
       <section class="classroom-main-content">
         
-        <!-- Player de Vídeo Minimalista IBEM -->
+        <!-- Player de Vídeo Dinâmico (YouTube IFrame Player API) -->
         <div class="player-container">
-          <div class="video-placeholder" onclick="togglePlaySimulation(this)">
-            <div class="video-play-btn">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
-            </div>
-            <div class="video-overlay-info">
-              <span class="video-time">14:30 / 22:00</span>
-              <span class="video-tag">IBEM HD • 1.0x</span>
+          <div class="video-responsive-wrapper" id="videoResponsiveWrapper">
+            <!-- Estrutura dinâmica para a API do YouTube (Vídeo Teste EW1iP4IQTTg) -->
+            <div id="player" data-video-id="EW1iP4IQTTg"></div>
+            <!-- Fallback quando nenhum link for fornecido -->
+            <div id="videoPlaceholderFallback" class="video-placeholder" style="display: none;">
+              <div class="video-play-btn">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+              </div>
+              <div class="video-overlay-info">
+                <span class="video-tag" id="videoFallbackTag">Vídeo em processamento pelo professor</span>
+              </div>
             </div>
           </div>
           <div class="player-controls-bar">
             <div class="player-buttons">
-              <button type="button" class="btn-control" onclick="alert('Vídeo reproduzido/pausado')">⏯ Play/Pause</button>
-              <button type="button" class="btn-control" onclick="alert('Velocidade alterada para 1.25x')">1.25x</button>
-              <button type="button" class="btn-control" onclick="alert('Legendas ativadas')">CC Legendas</button>
+              <span style="color:#bae6fd; font-size:0.75rem;" id="playerStatusIndicator">🔒 Assista ao vídeo teste até o final para liberar a conclusão</span>
             </div>
             <div class="player-tools">
+              <button type="button" class="btn-control btn-test-sim" onclick="simulateVideoEnded()" title="Atalho para testes: simular término da aula">⚡ Simular Fim</button>
               <button type="button" class="btn-control" onclick="alert('Anotação registrada com sucesso no seu caderno digital!')">📝 Caderno de Notas</button>
             </div>
           </div>
+
+          <!-- Alerta na Tela quando a Explicação for Finalizada (Requisito 4) -->
+          <div id="lessonCompletionAlert" class="lesson-alert-banner" style="display: none;" role="alert">
+            <div class="lesson-alert-left">
+              <div class="lesson-alert-icon-box">✓</div>
+              <div class="lesson-alert-text">
+                <strong class="lesson-alert-title">Explicação concluída!</strong>
+                <span class="lesson-alert-msg">Você já pode marcar esta aula como finalizada.</span>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary btn-sm" onclick="completeCurrentLesson()">
+              Concluir Aula e Voltar ao Painel ✓
+            </button>
+          </div>
         </div>
 
-        <!-- Texto Instrucional e Leitura Confortável -->
+        <!-- Texto Instrucional e Resumo Cadastrado pelo Administrador -->
         <article class="lesson-article">
-          <h1 class="article-title">Práticas de Alta Eficiência e Comunicação no Ambiente de Trabalho</h1>
+          <h1 class="article-title" id="articleTitle">Carregando Aula...</h1>
           <div class="article-meta">
-            <span>Tempo de leitura: 4 min</span>
+            <span id="lessonCourseTag">Curso IBEM</span>
+            <span>•</span>
+            <span id="lessonModuleTag">Módulo 1</span>
             <span>•</span>
             <span>Coordenação Pedagógica IBEM</span>
             <span>•</span>
             <span>Material Didático Oficial</span>
           </div>
 
-          <div class="article-body">
-            <p>
-              No padrão de excelência do <strong>IBEM Cursos e Profissões</strong>, o aprendizado foca na aplicação prática imediata e na clareza de execução. Para maximizar sua formação profissional, três pilares são determinantes:
-            </p>
-            
-            <ol class="styled-list">
-              <li>
-                <strong>Organização e Método:</strong> Planejar cada tarefa com clareza visual e etapas bem definidas reduz erros e eleva sua produtividade.
-              </li>
-              <li>
-                <strong>Comunicação Clara e Direta:</strong> Transmitir informações com vocabulário objetivo e foco na solução constrói credibilidade com clientes e equipes.
-              </li>
-              <li>
-                <strong>Fixação Ativa:</strong> O conhecimento se consolida quando exercitado logo após a explicação teórica. Utilize os quizzes rápidos ao lado para testar sua retenção.
-              </li>
-            </ol>
-
-            <div class="quote-box">
-              <p>
-                "Pensou em cursos, pense IBEM, faça IBEM — O aprendizado profissional transformador começa com método e dedicação prática diária."
-              </p>
-            </div>
+          <div class="article-body" id="articleBody">
+            <p>Carregando conteúdo da aula...</p>
           </div>
         </article>
 
@@ -209,6 +216,27 @@
           </div>
         </section>
 
+        <!-- BLOCO DE CONCLUSÃO DA AULA (AO TÉRMINO DOS ESTUDOS) -->
+        <div class="lesson-finish-card">
+          <div class="lesson-finish-info">
+            <h3 class="lesson-finish-title">Validação da Aula Concluída</h3>
+            <p class="lesson-finish-desc" id="lessonFinishDesc">
+              O formato do IBEM exige a visualização integral da explicação do professor gravada em vídeo. Ao terminar o vídeo, este botão e o superior serão liberados automaticamente.
+            </p>
+          </div>
+          <button 
+            type="button" 
+            class="btn btn-primary btn-classroom-complete" 
+            id="btnMarkClassDoneFooter" 
+            onclick="completeCurrentLesson()" 
+            disabled
+            title="Assista à explicação até o fim para liberar a conclusão"
+          >
+            <span class="btn-lock-icon" id="btnFooterLockIcon">🔒</span>
+            <span>Concluir Aula e Voltar ao Painel</span>
+          </button>
+        </div>
+
       </section>
 
       <!-- ÁREA DEDICADA PARA PEQUENOS QUIZZES E INTERAÇÕES RÁPIDAS (30%) -->
@@ -303,6 +331,8 @@
   <!-- TOAST / NOTIFICAÇÃO -->
   <div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
+  <!-- YouTube IFrame Player API e Lógica da Aplicação -->
+  <script src="https://www.youtube.com/iframe_api"></script>
   <script src="app.js"></script>
 </body>
 </html>

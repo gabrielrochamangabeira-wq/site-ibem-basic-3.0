@@ -32,13 +32,16 @@
       </div>
     </header>
 
-    <!-- MENU DE NAVEGAÇÃO INTERNO COM APENAS AS 2 FUNÇÕES PRINCIPAIS -->
+    <!-- MENU DE NAVEGAÇÃO INTERNO COM AS FUNÇÕES PRINCIPAIS -->
     <nav class="subnav" aria-label="Navegação Administrativa">
       <button type="button" class="subnav-tab active" data-tab="admin-alunos" id="tabAdminAlunos">
         👥 1. Cadastrar e Gerenciar Alunos
       </button>
       <button type="button" class="subnav-tab" data-tab="admin-modulos" id="tabAdminModulos">
         🔓 2. Controle de Módulos (Liberação Manual)
+      </button>
+      <button type="button" class="subnav-tab" data-tab="admin-aulas" id="tabAdminAulas">
+        🎬 3. Cadastrar Nova Aula
       </button>
     </nav>
 
@@ -100,14 +103,121 @@
               Tire o cadeado da tela do aluno com um clique. A liberação é manual e reflete imediatamente no Dashboard do estudante.
             </p>
           </div>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="openLessonModal()" id="btnNewLesson">
-            + Adicionar Nova Aula
+          <button type="button" class="btn btn-secondary btn-sm" onclick="switchToAdminTab('admin-aulas')" id="btnNewLesson">
+            + Cadastrar Nova Aula
           </button>
         </div>
 
         <!-- Grade de Liberação Manual por Aluno -->
         <div id="moduleControlContainer" class="module-control-grid">
           <!-- Renderizado via JavaScript (app.js) com botões "Liberar Módulo X para Aluno Y" -->
+        </div>
+      </section>
+
+      <!-- ============================================================== -->
+      <!-- FUNÇÃO 3: CADASTRAR NOVA AULA (YOUTUBE + MATERIAL DIDÁTICO)    -->
+      <!-- ============================================================== -->
+      <section class="tab-pane" id="pane-admin-aulas" aria-labelledby="titleAulas">
+        <div class="pane-header">
+          <div>
+            <h2 class="pane-title" id="titleAulas">Cadastrar Nova Aula</h2>
+            <p class="pane-desc">
+              Adicione aulas com link do YouTube e resumo didático. O conteúdo fica salvo no sistema e será carregado dinamicamente para os alunos daquele curso.
+            </p>
+          </div>
+        </div>
+
+        <!-- FORMULÁRIO LIMPO DE CADASTRO DE AULA -->
+        <div class="section-box" style="margin-bottom: 24px;">
+          <form id="adminLessonForm" onsubmit="event.preventDefault(); saveAdminLesson();">
+            <div class="form-row-2col">
+              <div class="form-group">
+                <label class="form-label" for="formAdminLessonCourse">Selecionar o Curso:</label>
+                <select id="formAdminLessonCourse" class="form-select" required>
+                  <!-- Populado dinamicamente -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="formAdminLessonModule">Módulo do Curso:</label>
+                <select id="formAdminLessonModule" class="form-select" required>
+                  <option value="1">Módulo 1</option>
+                  <option value="2">Módulo 2</option>
+                  <option value="3">Módulo 3</option>
+                  <option value="4">Módulo 4</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="formAdminLessonTitle">Título da Aula:</label>
+              <input 
+                type="text" 
+                id="formAdminLessonTitle" 
+                class="form-input" 
+                placeholder="Ex.: Aula 1: Primeiros Passos e Conceitos Fundamentais" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="formAdminLessonVideo">Link do Vídeo (Focado em links do YouTube):</label>
+              <input 
+                type="text" 
+                id="formAdminLessonVideo" 
+                class="form-input" 
+                placeholder="Ex.: https://www.youtube.com/watch?v=... ou https://youtu.be/..." 
+                required
+              >
+              <span style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
+                Aceita links normais do YouTube, links curtos (youtu.be) ou links incorporados (embed).
+              </span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="formAdminLessonContent">Resumo / Material da Aula:</label>
+              <textarea 
+                id="formAdminLessonContent" 
+                class="form-textarea" 
+                rows="6" 
+                placeholder="Escreva aqui o conteúdo didático, instruções, tópicos e conceitos práticos que o aluno lerá nesta aula..." 
+                required
+              ></textarea>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
+              <button type="submit" class="btn btn-primary btn-lg" id="btnSaveAdminLesson">
+                Salvar Aula
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- LISTA DAS AULAS CADASTRADAS NO LOCALSTORAGE -->
+        <div class="pane-header" style="margin-top: 36px;">
+          <div>
+            <h3 class="pane-title" style="font-size: 1.15rem;">Aulas Cadastradas no Sistema</h3>
+            <p class="pane-desc">Lista de todas as aulas salvas no sistema e disponíveis para os alunos.</p>
+          </div>
+        </div>
+
+        <div class="table-scroll-hint" aria-hidden="true">
+          <span>⟵ Deslize para o lado para ver todas as informações e botões ⟶</span>
+        </div>
+        <div class="table-container">
+          <table class="data-table" id="adminLessonsTable">
+            <thead>
+              <tr>
+                <th>Curso &amp; Módulo</th>
+                <th>Título da Aula</th>
+                <th>Vídeo do YouTube</th>
+                <th class="text-right">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="adminLessonsTableBody">
+              <!-- Renderizado via app.js -->
+            </tbody>
+          </table>
         </div>
       </section>
 
@@ -169,44 +279,7 @@
     </div>
   </div>
 
-  <!-- MODAL: ADICIONAR NOVA AULA (ADMIN) -->
-  <div class="modal-backdrop" id="lessonModal" role="dialog" aria-modal="true" aria-labelledby="modalLessonTitle">
-    <div class="modal-box" style="max-width: 460px;">
-      <div class="modal-header">
-        <h3 class="modal-title" id="modalLessonTitle">Adicionar Nova Aula</h3>
-        <button type="button" class="btn-close" onclick="closeLessonModal()" aria-label="Fechar modal">✕</button>
-      </div>
-      <form id="lessonForm" onsubmit="event.preventDefault(); saveLesson();">
-        <div class="form-group">
-          <label class="form-label" for="formLessonCourse">Curso:</label>
-          <select id="formLessonCourse" class="form-select" required>
-            <!-- Populado dinamicamente -->
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="formLessonModule">Módulo do Curso:</label>
-          <select id="formLessonModule" class="form-select" required>
-            <option value="1">Módulo 1</option>
-            <option value="2">Módulo 2</option>
-            <option value="3">Módulo 3</option>
-            <option value="4">Módulo 4</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="formLessonTitle">Título da Aula:</label>
-          <input type="text" id="formLessonTitle" class="form-input" required placeholder="Ex.: Aula 5: Técnicas Avançadas e Prática">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="formLessonDuration">Duração Estimada:</label>
-          <input type="text" id="formLessonDuration" class="form-input" required placeholder="Ex.: 20 min" value="20 min">
-        </div>
-        <div class="modal-actions">
-          <button type="button" class="btn btn-secondary" onclick="closeLessonModal()">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Cadastrar Aula</button>
-        </div>
-      </form>
-    </div>
-  </div>
+
 
   <!-- TOAST / NOTIFICAÇÃO -->
   <div class="toast-container" id="toastContainer" aria-live="polite"></div>
